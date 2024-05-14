@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Payment Page</title>
+    <link rel="stylesheet" href="payment.css" />
+  </head>
+  <body>
+    <h2>Select Payment Method:</h2>
+
+    <select id="paymentMethod" onchange="showPaymentDetails()">
+      <option value="none">Select Payment Method</option>
+      <option value="upi">UPI</option>
+      <option value="card">Card</option>
+    </select>
+
+    <div id="upiDetails" class="payment-details">
+      <div class="box1">
+          <label for="">Enter your upi id <div class="inputs"><input type="text" id="upi-id" placeholder="Enter your Upi Id" /></div></label>
+          <div class="inputs"><button id="btn-confirm1" disabled>Confirm</button></div>
+      </div>
+      <div class="box2" >
+        <img src="img/upi_pic.png" alt="" />
+      </div>
+    </div>
+
+    <div id="cardDetails" class="payment-details">
+      <div class="box3" >
+            <label for="">Card number <div class="inputs"><input type="number" id="card_number" placeholder="1234 1234 1234 1234"/></div></label>
+            <label for="">card expiry <div class="inputs"><input type="number" id="card_expiry" placeholder="MM" /></div></label>
+            <label for="">card expiry <div class="inputs"><input type="number" id="card_expiry" placeholder="YY" /></div></label>
+            <label for=""> CVV <div class="inputs"><input type="number" id="cvv" placeholder="123" /></div></label>
+            <div class="inputs"><button id="btn-confirm2" disabled>Confirm</button></div>
+      </div>
+      <div class="box4">
+        <img src="img/card_pic.png" alt="">
+      </div>
+    </div>
+
+    <!----------------------------------------------------------------------------------------------------------- -->
+    <script src="payment.js"></script>
+  </body>
+</html>

@@ -1,0 +1,134 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ticket Booking</title>
+    <link rel="stylesheet" href="seat_ui.css">
+  </head>
+  <body>
+    <div class="center">
+      <div class="tickets">
+        <div class="ticket-selector">
+          <div class="seats">
+            <div class="status">
+              <div class="item">Available</div>
+              <div class="item">Booked</div>
+              <div class="item">Selected</div>
+            </div>
+            <div class="all-seats">
+              <input type="checkbox" name="tickets" id="s1" />
+              <label for="s1" class="seat booked"></label>
+            </div>
+          </div>
+
+        <div class="price">
+          <div class="total">
+            <span> <span class="count">0</span> Tickets </span>
+            <div class="amount">0</div>
+          </div>
+          <button id="paybtn" type="button">Pay</button>
+        </div>
+      </div>
+    </div>
+
+<!-- --------------------------------------------------------------------------------------------------------------- -->
+
+<script src="seat_ui.js">
+// document.addEventListener("DOMContentLoaded", function () {
+//     let seats = document.querySelector(".all-seats");
+//     let selectedSeats = [];
+
+//     // Retrieve selected PVR name, show time, and date from localStorage
+//     const selectedPVR = localStorage.getItem('selectedPVR');
+//     const selectedShowTime = localStorage.getItem('selectedShowTime');
+//     const selectedDate = localStorage.getItem('selectedDate');
+
+//     // Generate unique key for storing booked seats based on PVR, show time, and date
+//     const bookedSeatsKey = `${selectedPVR}_${selectedShowTime}_${selectedDate}`;
+
+//     // Function to generate seats dynamically based on availability
+//     function generateSeats(availableSeats) {
+//         seats.innerHTML = ""; // Clear existing seats
+//         for (let i = 0; i < availableSeats; i++) {
+//             seats.insertAdjacentHTML(
+//                 "beforeend",
+//                 `<input type="checkbox" name="tickets" id="s${i + 1}" /><label for="s${i + 1}" class="seat available"></label>`
+//             );
+//         }
+//     }
+
+//     // Determine available seats (default to 60)
+//     const availableSeats = 60;
+
+//     // Generate seats based on availability
+//     generateSeats(availableSeats);
+
+//     // Check if any seats are already booked for the selected PVR, show time, and date
+//     const bookedSeats = JSON.parse(localStorage.getItem(bookedSeatsKey)) || [];
+
+//     bookedSeats.forEach(seatId => {
+//         const seatCheckbox = document.getElementById(seatId);
+//         if (seatCheckbox) {
+//             seatCheckbox.checked = true;
+//             seatCheckbox.disabled = true;
+//             seatCheckbox.nextElementSibling.classList.remove('available');
+//             seatCheckbox.nextElementSibling.classList.add('booked');
+//             selectedSeats.push(seatId); // Store selected seat
+//         }
+//     });
+
+//     let tickets = seats.querySelectorAll("input");
+//     tickets.forEach((ticket) => {
+//         ticket.addEventListener("change", () => {
+//             let amount = document.querySelector(".amount").innerHTML;
+//             let count = document.querySelector(".count").innerHTML;
+//             amount = Number(amount);
+//             count = Number(count);
+
+//             if (ticket.checked) {
+//                 selectedSeats.push(ticket.id);
+//                 count += 1;
+//                 amount += 200;
+//             } else {
+//                 selectedSeats = selectedSeats.filter((seat) => seat !== ticket.id);
+//                 count -= 1;
+//                 amount -= 200;
+//             }
+//             document.querySelector(".amount").innerHTML = amount;
+//             document.querySelector(".count").innerHTML = count;
+
+//             if (count > 0) {
+//                 paybtn.style.display = "block";
+//             } else {
+//                 paybtn.style.display = "none";
+//             }
+
+//         });
+//     });
+
+//     document.getElementById("paybtn").addEventListener("click", function () {
+//         // Store selected seats in localStorage for the selected PVR, show time, and date combination
+//         localStorage.setItem(bookedSeatsKey, JSON.stringify(selectedSeats));
+//         console.log("Selected seats:", selectedSeats); //  log
+//         console.log("Booked seats key:", bookedSeatsKey);
+//         window.location.href = "payment.html";
+//     });
+// });
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+// ///////////////////////////////////////////////////////////////
+
+
+
+   </script>
+
+  
+</body>
+</html>

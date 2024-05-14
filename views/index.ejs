@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PVR Options</title>
+    <style>
+      h1 {
+        text-align: center;
+      }
+      .pvr-box {
+        border: 1px solid #ccc;
+        width: 100%;
+        margin-bottom: 20px;
+        padding: 10px;
+        margin-left: -10px;
+        display: flex;
+      }
+      .pvr-name {
+        /* border: 1px solid black; */
+        width: 470px;
+      }
+      .time-box {
+        border: 1px solid black;
+        display: inline-block;
+        margin-right: 30px;
+        padding: 5px;
+        border-radius: 4px;
+        width: 80px;
+        height: 23px;
+        text-align: center;
+        margin-left: 80px;
+      }
+      .wrapper {
+        /* margin-left: 50px; */
+        margin-top: 20px;
+      }
+      a {
+        color: #4abd5d;
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+      .line{
+        border: 1px solid black;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>PVR Options</h1>
+    <label for="dateInput">Select a date:</label>
+    <input type="date" id="dateInput" />
+
+    <% pvrDetails.forEach(pvr => { %>
+
+    <div class="pvr-box">
+      <div class="pvr-name">
+        <h2><%= pvr.pvr_name %></h2>
+      </div>
+      <div class="line"></div>
+      <div class="wrapper">
+        <div class="time-box">
+            <a href="#" class="pvr-link" data-pvr="<%= pvr.pvr_name %>" data-show="<%= pvr.show_1 %>"><%= pvr.show_1 %></a>
+        </div>
+        <div class="time-box">
+            <a href="#" class="pvr-link" data-pvr="<%= pvr.pvr_name %>" data-show="<%= pvr.show_2 %>"><%= pvr.show_2 %></a>
+        </div>
+        <div class="time-box">
+            <a href="#" class="pvr-link" data-pvr="<%= pvr.pvr_name %>" data-show="<%= pvr.show_3 %>"><%= pvr.show_3 %></a>
+        </div>
+      </div>
+    </div>
+    <% }); %>
+
+    <script>
+      //
+      document.addEventListener("DOMContentLoaded", function () {
+        var today = new Date();
+        var minDate = formatDate(today);
+
+        document.getElementById("dateInput").value = minDate;
+
+        var nextWeek = new Date();
+        nextWeek.setDate(today.getDate() + 7);
+        var maxDate = formatDate(nextWeek);
+
+        document.getElementById("dateInput").setAttribute("max", maxDate);
+        document.getElementById("dateInput").setAttribute("min", minDate);
+      });
+
+      function formatDate(date) {
+        var year = date.getFullYear();
+        var month = (date.getMonth() + 1).toString().padStart(2, "0");
+        var day = date.getDate().toString().padStart(2, "0");
+        return year + "-" + month + "-" + day;
+      }
+      // ///////////////////////////
+      document.querySelectorAll('.pvr-link').forEach(function (link) {
+            link.addEventListener('click', function (event) {
+                event.preventDefault();
+                var pvrName = this.getAttribute('data-pvr');
+                var showTime = this.getAttribute('data-show');
+                var selectedDate = document.getElementById('dateInput').value;
+                localStorage.setItem('selectedPVR', pvrName);
+                localStorage.setItem('selectedShowTime', showTime);
+                localStorage.setItem('selectedDate', selectedDate);
+                console.log('Selected PVR:', pvrName);
+                console.log('Selected Show Time:', showTime);
+                console.log('Selected Date:', selectedDate);
+                // Redirect to the seat selection page
+                window.location.href = '/seat_ui.html';
+            });
+        });
+    </script>
+  </body>
+</html>

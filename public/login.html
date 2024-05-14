@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <style>
+      body{
+            background: linear-gradient(to right, rgb(225, 228, 225), rgb(204, 207, 204));
+        }
+      h2 {
+        text-align: center;
+      }
+      .inputs {
+        text-align: center;
+        position: relative;
+        margin: 15px;
+        padding-block: 1px;
+        padding-inline: 2px;
+        margin-top: 50px;
+      }
+      .inputs #username ,#password {
+        width: 200px;
+        height: 25px;
+        border-radius: 4px;
+        }
+      #button {
+        text-align: center;
+        margin-top: 50px;
+        border: 2px solid black;
+        background-color: black;
+        color: white;
+        border-radius: 8px;
+        width: 350px;
+        height: 35px;
+      }
+      .container{
+            display: flex;
+            margin-left: 150px;
+            
+        }
+        .box1{
+            border-radius: 10px;
+            width: 470px;
+            height: 450px;
+            background-color: white;
+        }
+        .box2{
+            border-radius: 10px;
+            width: 470px;
+            height: 450px;
+        }
+        #message{
+            text-align: center;
+            font-size: larger;
+            color: rgb(253, 98, 2);
+            font-weight: bolder;
+            margin-top: 20px;
+        }
+        .box2 img{
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+        }
+        p{
+            text-align: center;
+        }
+        a{
+        color:rgb(211, 106, 162);
+        text-decoration: none;
+      }
+      a:hover{
+        text-decoration: underline;
+      }
+
+    </style>
+  </head>
+  <body>
+    <h2>Login</h2>
+    <div class="container">
+      <div class="box1">
+        <form id="loginForm">
+          <div class="inputs"><input type="text" id="username" placeholder="Username" required/><br />
+          </div>
+          <div class="inputs"><input type="password" id="password" placeholder="Password" required/><br />
+          </div>
+          <div class="inputs"><button id="button" type="submit">Login</button></div>
+        </form>
+        <p>Don't have an account? <a href="register.html">Sign up</a></p>
+      </div>
+      <div class="box2">
+        <img src="img/login-welcome.png" alt="">
+    </div>
+    </div>
+    
+    <div id="message"></div>
+
+    <script>
+      document
+        .getElementById("loginForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const username = document.getElementById("username").value;
+          const password = document.getElementById("password").value;
+          const response = await fetch("/login", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ username, password }),
+          });
+
+          if (response.ok) {
+            const jsonResponse = await response.json();
+            if (jsonResponse.success) {
+              if (jsonResponse.role === "user") {
+                console.log("Redirecting normal user to home_screen.html");
+                window.location.href = "/home_screen.html";
+              } else if (jsonResponse.role === "admin") {
+                console.log("Redirecting admin user to home_screen.html");
+                window.location.href = "/admin.html";
+              }
+            } else {
+              const message = await response.text();
+              document.getElementById("message").textContent = message;
+            }
+          }
+        });
+      // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      
+    </script>
+  </body>
+</html>

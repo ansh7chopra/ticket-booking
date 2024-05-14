@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Upcomming</title>
+    <style>
+      body {
+        background-color: #1f2025;
+      }
+      #UpcommingMovieDetails {
+        color: white;
+      }
+      #UpcommingMovieDetails h1 {
+        color: rgb(186, 180, 180);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="UpcommingMovieDetails"></div>
+
+    <script>
+      window.onload = function () {
+        const urlParams = new URLSearchParams(window.location.search);
+        const movieId = urlParams.get("id");
+
+        fetch(`/upcomming/movie/${movieId}`)
+          .then((response) => response.json())
+          .then((data) => {
+            const UpcommingMovieDetailsDiv = document.getElementById(
+              "UpcommingMovieDetails"
+            );
+            UpcommingMovieDetailsDiv.innerHTML = `
+      <h1>${data[0].title}</h1>
+      <p><strong>Directed by:</strong> ${data[0].director}</p>
+      <p><strong>Starring:</strong> ${data[0].starring}</p>
+      <p><strong>Genre:</strong> ${data[0].genre}</p>
+      <br>
+      <h3><strong>Releasing on :</strong> ${data[0].release_date}</p>
+    `;
+          })
+          .catch((error) =>
+            console.error("Error fetching movie details:", error)
+          );
+      };
+    </script>
+  </body>
+</html>

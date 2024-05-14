@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>home screen</title>
+    <link rel="stylesheet" href="home_screen.css" />
+  </head>
+  <body>
+    <section id="recommended_movies">
+
+      <div class="logout">
+        <button id="logoutbtn">Log Out</button>
+      </div>
+
+     <div class="searchbar">
+      <input type="text" id="searchInput" placeholder="  Search for movies...">
+    <button onclick="searchMovies()" id="searchbtn">Search</button>
+    <div id="searchResults"></div>
+     </div>
+
+     <div class="logo">
+      <img src="img/bookmyshow.png" alt="logo">
+     </div>
+
+      <div class="heading1">
+        <h3>Recommended Movies</h3>
+      </div>
+    <div class="recommended">
+      <div class="rmovies">
+        <a href="/movie_details.html?id=1">
+          <img  src ="img\shaitaan.jpg" alt="" id="imgs"><strong>Shaitaan</strong> <br> Horror/Suspense
+        </a>
+      </div>
+      <div class="rmovies">
+        <a href="/movie_details.html?id=2">
+          <img  src ="img\lapata ladies.jpg" alt="" id="imgs"><strong>Lapata Ladies</strong> <br> Comedy/Drama
+        </a>
+              </div>
+      <div class="rmovies">
+        <a href="/movie_details.html?id=3">
+          <img  src ="img\maidaan.jpg" alt="" id="imgs"><strong>Maidaan</strong> <br> Biogragphy</a>
+              </div>
+      <div class="rmovies">
+        <a href="/movie_details.html?id=4">
+          <img  src ="img\Crew.jpeg" alt="" id="imgs"><strong>Crew</strong> <br> Comedy/Drama
+        </a>
+      </div>
+      <div class="rmovies">
+        <a href="/movie_details.html?id=5">
+        <img  src ="img\jawan.jpg" alt="" id="imgs"><strong>Jawan</strong> <br>Action/Thriller
+        </a>
+      </div>
+        
+    </div>
+  </section>
+
+  
+
+  <section id="upcommming_movies">
+    <div class="heading2">
+      <h3>Upcomming Movies</h3>
+  </div>
+      <div class="upcomming">
+        <div class="umovies">
+          <a href="/upcomming.details.html?id=101">
+            <img  src ="img\bade miyan.jpg" alt="" id="imgs"><strong>Bade Miyan Chote Miyan</strong>  <br> action/thriller</div>
+          </a>
+          
+        <div class="umovies">
+          <a href="/upcomming.details.html?id=102">
+            <img  src ="img\deadpool_and_wolverine.jpg" alt="" id="imgs"><strong>deadpool_and_wolverine</strong> <br> fiction/comedy</div>
+          </a>
+          
+        <div class="umovies">
+          <a href="/upcomming.details.html?id=103">
+            <img  src ="img\Singham-Again.jpg" alt="" id="imgs"><strong>Singham-Again</strong> <br> action</div>
+          </a>
+          
+        <div class="umovies">
+          <a href="/upcomming.details.html?id=104">
+            <img  src ="img\venom.jpg" alt="" id="imgs"><strong>venom</strong> <br> horror/fiction</div>
+          </a>
+          
+        <div class="umovies">
+          <a href="/upcomming.details.html?id=105">
+            <img  src ="img\Kalki.jpeg" alt="" id="imgs"><strong>Kalki</strong> <br>science-fiction</div>
+          </a>
+          
+      </div> 
+    </div>
+  </section>
+ 
+  <script>
+    
+    function searchMovies() {
+      var input, filter, movies, movie, title, i;
+      input = document.getElementById('searchInput');
+      filter = input.value.toUpperCase();
+      movies = document.querySelectorAll('.rmovies, .umovies');
+
+      for (i = 0; i < movies.length; i++) {
+        movie = movies[i];
+        title = movie.textContent || movie.innerText;    
+        if (title.toUpperCase().indexOf(filter) > -1) {
+          movie.style.display = '';
+        } else {
+          movie.style.display = 'none';
+        }
+      }
+    }
+    document.getElementById('logoutbtn').addEventListener('click', function() {
+      window.location.href = '/login';
+    });
+    history.pushState(null, null, location.href);
+        window.onpopstate = function(event) {
+            history.go(1);
+        };
+    
+
+    // ////////////////////////////////////////////////////////////////////////////////////////////////////
+    // function disableForwardBackButtons() {
+    //         history.pushState(null, null, location.href);
+    //         window.onpopstate = function(event) {
+    //             history.go(1);
+    //         };
+    //     }
+    //     document.getElementById('logoutbtn').addEventListener('click', function() {   
+    //         window.location.href = '/login';  
+    //         disableForwardBackButtons();
+    //     });
+
+
+  </script>
+  </body>
+</html>

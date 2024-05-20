@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ticket Details</title>
+    <style>
+        body{
+            background-color: #1f2126;;
+        }
+        .bold{
+            font-weight: bolder;
+            color: rgb(0 237 13);
+            font-size: 20px;
+        }
+        h1{
+            text-align: center;
+            color: white;
+        }
+        li{
+            color: white;
+        }
+        #downloadBtn {
+            background-color: rgb(55 149 60); 
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 10px 2px;
+            cursor: pointer;
+            border-radius: 4px;
+            margin-left: 25px;
+        }
+        #downloadBtn:hover {
+            text-decoration: underline;
+        }
+
+
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
+
+</head>
+<body>
+    <h1>Tickets Sold </h1>
+    <div id="ticketDetailsContainer"></div>
+
+    <button id="downloadBtn">Download as Excel</button>
+
+
+    <script src="ticket-details.js"></script>
+
+   
+</body>
+</html>

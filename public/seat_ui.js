@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const seatCheckbox = document.getElementById(seatId);
         if (seatCheckbox) {
             seatCheckbox.checked = true;
-            seatCheckbox.disabled = true;
+            seatCheckbox.disabled = true; 
             seatCheckbox.nextElementSibling.classList.remove('available');
             seatCheckbox.nextElementSibling.classList.add('booked');
         }
@@ -72,93 +72,84 @@ document.addEventListener("DOMContentLoaded", function () {
 //  (newly added changes where  each pvr different but seatnumber not displayed  in end )
 
 
-// document.addEventListener("DOMContentLoaded", function () {
-//     const seatsContainer = document.querySelector(".all-seats");
-//     let bookingData = JSON.parse(localStorage.getItem("bookingData")) || {};
-//     let selectedSeats = [];
+//  document.addEventListener("DOMContentLoaded", function () {
+//     const urlParams = new URLSearchParams(window.location.search);
+//     const movieId = urlParams.get("id");
+//     const selectedPVR = localStorage.getItem("selectedPVR");
+//     const selectedShowTime = localStorage.getItem("selectedShowTime");
+//     const selectedDate = localStorage.getItem("selectedDate");
 
+//     // Create a unique key for the combination of movieId, PVR, showTime, and date
+//     const uniqueKey = `${movieId}_${selectedPVR}_${selectedShowTime}_${selectedDate}`;
+//     let seats = document.querySelector(".all-seats");
+//     let selectedSeats = JSON.parse(localStorage.getItem(`selectedSeats_${uniqueKey}`)) || [];
+
+//     // Function to generate seats dynamically
 //     function generateSeats(availableSeats) {
-//         seatsContainer.innerHTML = "";
+//         seats.innerHTML = ""; 
 //         for (let i = 0; i < availableSeats; i++) {
-//             seatsContainer.insertAdjacentHTML(
+//             seats.insertAdjacentHTML(
 //                 "beforeend",
 //                 `<input type="checkbox" name="tickets" id="s${i + 1}" /><label for="s${i + 1}" class="seat available"></label>`
 //             );
 //         }
 //     }
 
+//     // Generate 60 available seats
 //     const availableSeats = 60;
 //     generateSeats(availableSeats);
 
-//     const selectedMovie = localStorage.getItem("selectedMovie");
-//     const selectedPVR = localStorage.getItem("selectedPVR");
-//     const selectedShowTime = localStorage.getItem("selectedShowTime");
-
-//     // Load selected seats for the current movie, PVR, and show time
-//     selectedSeats = bookingData[selectedMovie]?.[selectedPVR]?.[selectedShowTime] || [];
-//     updateUI(selectedSeats.length);
-
+//     // Mark the seats that are already selected
 //     selectedSeats.forEach(seatId => {
 //         const seatCheckbox = document.getElementById(seatId);
 //         if (seatCheckbox) {
 //             seatCheckbox.checked = true;
-//             seatCheckbox.disabled = true;
+//             seatCheckbox.disabled = true; 
 //             seatCheckbox.nextElementSibling.classList.remove('available');
 //             seatCheckbox.nextElementSibling.classList.add('booked');
 //         }
 //     });
 
-//     seatsContainer.addEventListener("change", (event) => {
-//         if (event.target.matches('input[type="checkbox"]')) {
-//             const seatId = event.target.id;
-//             const isChecked = event.target.checked;
+//     // Add event listeners to the seat checkboxes
+//     let tickets = seats.querySelectorAll("input");
+//     tickets.forEach((ticket) => {
+//         ticket.addEventListener("change", () => {
+//             let amount = document.querySelector(".amount").innerHTML;
+//             let count = document.querySelector(".count").innerHTML;
+//             amount = Number(amount);
+//             count = Number(count);
 
-//             // Ensure the movie and PVR are selected before booking a seat
-//             if (!selectedMovie || !selectedPVR) {
-//                 alert("Please select a movie and PVR first.");
-//                 event.target.checked = false; // Uncheck the seat
-//                 return;
-//             }
-
-//             bookingData[selectedMovie] = bookingData[selectedMovie] || {};
-//             bookingData[selectedMovie][selectedPVR] = bookingData[selectedMovie][selectedPVR] || {};
-//             bookingData[selectedMovie][selectedPVR][selectedShowTime] = bookingData[selectedMovie][selectedPVR][selectedShowTime] || [];
-
-//             if (isChecked) {
-//                 bookingData[selectedMovie][selectedPVR][selectedShowTime].push(seatId);
-//                 selectedSeats.push(seatId);
-//                 console.log('Seat added:', seatId);
+//             if (ticket.checked) {
+//                 selectedSeats.push(ticket.id);
+//                 count += 1;
+//                 amount += 200;
 //             } else {
-//                 const index = bookingData[selectedMovie][selectedPVR][selectedShowTime].indexOf(seatId);
-//                 if (index !== -1) {
-//                     bookingData[selectedMovie][selectedPVR][selectedShowTime].splice(index, 1);
-//                     selectedSeats = selectedSeats.filter(seat => seat !== seatId);
-                    
-//                 }
+//                 selectedSeats = selectedSeats.filter((seat) => seat !== ticket.id);
+//                 count -= 1;
+//                 amount -= 200;
+//             }
+//             document.querySelector(".amount").innerHTML = amount;
+//             document.querySelector(".count").innerHTML = count;
+
+//             if (count > 0) {
+//                 document.getElementById("paybtn").style.display = "block";
+//             } else {
+//                 document.getElementById("paybtn").style.display = "none";
 //             }
 
-//             localStorage.setItem("bookingData", JSON.stringify(bookingData));
-//             updateUI(selectedSeats.length);
-//         }
+//             // Store the selected seats in localStorage with the unique key
+//             localStorage.setItem(`selectedSeats_${uniqueKey}`, JSON.stringify(selectedSeats));
+//             console.log("Selected seats:", selectedSeats);
+//         });
 //     });
 
-//     function updateUI(selectedSeatsCount) {
-//         const amount = selectedSeatsCount * 200; // Assuming each seat costs 200
-//         const countElement = document.querySelector(".count");
-//         const amountElement = document.querySelector(".amount");
-//         const payButton = document.getElementById("paybtn");
-
-//         countElement.innerHTML = selectedSeatsCount;
-//         amountElement.innerHTML = amount;
-
-//         if (selectedSeatsCount > 0) {
-//             payButton.style.display = "block";
-//         } else {
-//             payButton.style.display = "none";
-//         }
-//     }
-
+//     // Redirect to the payment page on clicking the pay button
 //     document.getElementById("paybtn").addEventListener("click", function () {
 //         window.location.href = "payment.html";
 //     });
+//     console.log("Movie ID:", movieId);
+//     console.log("Selected PVR:", selectedPVR);
+//     console.log("Selected Show Time:", selectedShowTime);
+//     console.log("Selected Date:", selectedDate);
+//     console.log("Selected Seats:", selectedSeats);
 // });

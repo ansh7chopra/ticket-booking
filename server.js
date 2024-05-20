@@ -35,6 +35,7 @@ app.get("/login", (req, res) => {
 app.get("/home_screen", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "home_screen.html"));
 });
+
 app.get("/admin", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "admin.html"));
 });
@@ -90,6 +91,24 @@ app.post("/login", (req, res) => {
 });
 // ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+
+// app.get("/movie/:id/details", (req, res) => {
+//   const movieId = req.params.id;
+//   const sql = `SELECT * FROM rmovies WHERE id = ?`;
+//   db.query(sql, [movieId], (err, result) => {
+//     if (err) {
+//       console.error("Error fetching movie details:", err);
+//       res.status(500).send("Internal Server Error");
+//       return;
+//     }
+//     if (result.length === 0) {
+//       res.status(404).send("Movie details not found");
+//       return;
+//     }
+//     res.json(result[0]); // Send movie details as JSON
+//   });
+// });
+
 app.get("/movie/:id", (req, res) => {
   const movieId = req.params.id;
   const sql = `SELECT * FROM rmovies WHERE id = ${movieId}`;
@@ -98,6 +117,7 @@ app.get("/movie/:id", (req, res) => {
     res.json(result);
   });
 });
+
 
 app.get("/movie_details", (req, res) => {
   res.sendFile(path.join(__dirname, "movie_details.html"));
@@ -144,7 +164,7 @@ app.get("/pvr", (req, res) => {
   });
 });
 
-// //////////////////////////////////////////////////
+
 
 
 
@@ -163,6 +183,39 @@ app.post('/ticket.html', (req, res) => {
     }
     console.log('Booking data inserted into MySQL table');
     res.json({ success: true });
+  });
+});
+
+// app.post('/ticket.html', (req, res) => {
+//   const { movie, pvr, showTime, date, seats } = req.body;
+
+//   // Construct the table name based on the selected movie name
+//   const tableName = `${movie}_tickets`;
+
+//   // Construct the SQL query to insert data into the respective movie-specific table
+//   const sql = `INSERT INTO ${tableName} (pvr, show_time, date, seats) VALUES (?, ?, ?, ?)`;
+//   const values = [pvr, showTime, date, seats.join(", ")];
+
+//   db.query(sql, values, (err, result) => {
+//     if (err) {
+//       console.error('Error inserting data into MySQL:', err);
+//       res.status(500).send('Error inserting data into MySQL');
+//       return;
+//     }
+//     console.log('Booking data inserted into', tableName, 'table');
+//     res.json({ success: true });
+//   });
+// });
+
+app.get('/admin/ticket-sold/:movieName', (req, res) => {
+  const movieName = req.params.movieName;
+  const sql = 'SELECT * FROM bookings WHERE movie = ?';
+  db.query(sql, [movieName], (err, results) => {
+    if (err) {
+      console.error('Error executing MySQL query:', err);
+      return res.status(500).send('Database query error');
+    }
+    res.json(results);
   });
 });
 

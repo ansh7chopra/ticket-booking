@@ -115,10 +115,10 @@
             if (jsonResponse.success) {
               if (jsonResponse.role === "user") {
                 console.log("Redirecting normal user to home_screen.html");
-                window.location.href = "/home_screen.html";
+                window.location.href = "/home_screen";
               } else if (jsonResponse.role === "admin") {
                 console.log("Redirecting admin user to home_screen.html");
-                window.location.href = "/admin.html";
+                window.location.href = "/admin";
               }
             } else {
               const message = await response.text();

@@ -3,13 +3,13 @@
 }
 body {
   background: #1f2126;
-  /* background-color: #f4f4f4; */
 }
 
-/* .logo{
-  background-color: #1f2025;
-  display: inline-block;
-} */
+h1{
+  text-align: center;
+  color: chartreuse;
+}
+
 .logo img {
   width: 120px;
   height: 50px;

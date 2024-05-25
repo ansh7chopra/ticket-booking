@@ -1,6 +1,3 @@
-
-
-// Define the getTicketSales function in the global scope
 function getTicketSales(movieName) {
     fetch(`/admin/ticket-sold/${movieName}`)
         .then(response => response.json())
@@ -17,10 +14,6 @@ function getTicketSales(movieName) {
         })
         .catch(error => console.error('Error fetching ticket sales:', error));
 }
-
-// Now the getTicketSales function is defined in the global scope
-
-
 
 
 function searchMovies() {
@@ -42,8 +35,4 @@ function searchMovies() {
   document.getElementById('logoutbtn').addEventListener('click', function() {
     window.location.href = '/login';
   });
-//   history.pushState(null, null, location.href);
-//       window.onpopstate = function(event) {
-//           history.go(1);
-//       };
 

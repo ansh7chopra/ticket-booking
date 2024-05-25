@@ -27,7 +27,9 @@ h1{
   color:white ;
 }
 #searchbtn:hover{
-  text-decoration: underline;
+  /* text-decoration: underline; */
+  background-color:rgb(248, 68, 100) ;
+  color: black;
 }
 #searchInput {
   width: 60%;

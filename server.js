@@ -24,20 +24,16 @@ app.use(bodyParser.json());
 
 app.use(express.static(path.join(__dirname, "public")));
 
-app.get("/register", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "register.html"));
-});
-
-app.get("/login", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "login.html"));
-});
-
 app.get("/home_screen", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "home_screen.html"));
 });
 
 app.get("/admin", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "admin.html"));
+});
+
+app.get("/register", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "register.html"));
 });
 
 app.post("/register", (req, res) => {
@@ -64,6 +60,9 @@ app.post("/register", (req, res) => {
   });
 });
 
+app.get("/login", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "login.html"));
+});
 app.post("/login", (req, res) => {
   const { username, password } = req.body;
   const sql = "SELECT * FROM users WHERE username = ? AND password = ?";
@@ -92,22 +91,7 @@ app.post("/login", (req, res) => {
 // ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-// app.get("/movie/:id/details", (req, res) => {
-//   const movieId = req.params.id;
-//   const sql = `SELECT * FROM rmovies WHERE id = ?`;
-//   db.query(sql, [movieId], (err, result) => {
-//     if (err) {
-//       console.error("Error fetching movie details:", err);
-//       res.status(500).send("Internal Server Error");
-//       return;
-//     }
-//     if (result.length === 0) {
-//       res.status(404).send("Movie details not found");
-//       return;
-//     }
-//     res.json(result[0]); // Send movie details as JSON
-//   });
-// });
+
 
 app.get("/movie/:id", (req, res) => {
   const movieId = req.params.id;
@@ -152,6 +136,7 @@ app.get("/search", (req, res) => {
 });
 
 // ////////////////////////////////////////////////////////////////////////////
+app.set('views', path.join(__dirname, 'views'));
 app.set("view engine", "ejs");
 
 app.get("/pvr", (req, res) => {
@@ -185,27 +170,6 @@ app.post('/ticket.html', (req, res) => {
     res.json({ success: true });
   });
 });
-
-// app.post('/ticket.html', (req, res) => {
-//   const { movie, pvr, showTime, date, seats } = req.body;
-
-//   // Construct the table name based on the selected movie name
-//   const tableName = `${movie}_tickets`;
-
-//   // Construct the SQL query to insert data into the respective movie-specific table
-//   const sql = `INSERT INTO ${tableName} (pvr, show_time, date, seats) VALUES (?, ?, ?, ?)`;
-//   const values = [pvr, showTime, date, seats.join(", ")];
-
-//   db.query(sql, values, (err, result) => {
-//     if (err) {
-//       console.error('Error inserting data into MySQL:', err);
-//       res.status(500).send('Error inserting data into MySQL');
-//       return;
-//     }
-//     console.log('Booking data inserted into', tableName, 'table');
-//     res.json({ success: true });
-//   });
-// });
 
 app.get('/admin/ticket-sold/:movieName', (req, res) => {
   const movieName = req.params.movieName;

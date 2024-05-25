@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Display ticket details in the HTML page
     const ticketDetailsContainer = document.getElementById('ticketDetailsContainer');
     if (ticketDetailsContainer) {
-        const list = document.createElement('ul');
+        const list = document.createElement('ol');
         ticketData.forEach(ticket => {
             const listItem = document.createElement('li');
             listItem.innerHTML = ` <span class="bold">Movie Name:</span> ${ticket.movie}, <span class="bold">PVR:</span> ${ticket.pvr}, <span class="bold">Date:</span> ${ticket.date}, <span class="bold">Show Time:</span> ${ticket.show_time}, <span class="bold">Seats:</span> ${ticket.seats}`;
